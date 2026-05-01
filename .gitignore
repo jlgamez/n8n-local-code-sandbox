@@ -1,3 +1,6 @@
 # Ignore real node input data — may contain private information
 code-nodes/**/input.json
 !code-nodes/example-transform/input.json
+
+# Ignore other node mocks — may contain data from other nodes in the workflow
+code-nodes/**/other_node_*.json
