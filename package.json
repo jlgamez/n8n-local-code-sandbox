@@ -1,0 +1,8 @@
+{
+  "name": "n8n-local-code-sandbox",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "node": "node runner.js"
+  }
+}
