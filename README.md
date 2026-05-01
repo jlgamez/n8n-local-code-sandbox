@@ -51,4 +51,4 @@ Available methods:
 
 ## Adding a new node
 
-Ask Claude: *"create a new code node for X"* or run `/new-code-node` — it will scaffold both files and verify the output.
+Ask Claude: *"create a new code node for X"* or run `/n8n-coder` — it will scaffold both files and verify the output.

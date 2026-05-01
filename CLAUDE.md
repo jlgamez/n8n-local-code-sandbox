@@ -24,12 +24,10 @@ code-nodes/
     script.js    # node logic using $input
 ```
 
-## When to use the `/new-code-node` skill
+## Coding, debugging, and fixing code nodes
 
-Invoke `/new-code-node` whenever the user asks to:
-- create a new code node
-- add a new node
-- scaffold a node
-- test a transformation
+When implementing, reviewing, or fixing any `script.js` file, apply the `/n8n-coder` skill guidelines automatically — even if not explicitly invoked.
 
-The skill handles scaffolding, conventions, and verification.
+## Scaffolding a new code node
+
+When the user asks to create, add, or scaffold a node, the `/n8n-coder` skill handles scaffolding, conventions, and verification.
