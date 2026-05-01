@@ -1,4 +1,4 @@
-import { readFile } from 'fs/promises';
+import { readFile, readdir } from 'fs/promises';
 import { resolve } from 'path';
 import { setup } from './lib/n8n-globals.js';
 
@@ -14,6 +14,14 @@ const inputPath = resolve(folderPath, 'input.json');
 const scriptPath = resolve(folderPath, 'script.js');
 
 const inputData = JSON.parse(await readFile(inputPath, 'utf-8'));
-setup(inputData);
+
+const files = await readdir(folderPath);
+const otherNodes = {};
+for (const file of files.filter(f => f.startsWith('other_node_') && f.endsWith('.json'))) {
+  const nodeName = file.slice('other_node_'.length, -'.json'.length);
+  otherNodes[nodeName] = JSON.parse(await readFile(resolve(folderPath, file), 'utf-8'));
+}
+
+setup(inputData, otherNodes);
 
 await import(scriptPath);

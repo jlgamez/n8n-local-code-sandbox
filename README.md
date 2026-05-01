@@ -26,28 +26,41 @@ npm run node -- <node-name>
 
 ## Writing a node script
 
-Inside `script.js` you have access to `$input`, just like in n8n:
+Scripts work exactly like n8n Code nodes with **one exception**: instead of `return result`, use `console.log` to output the result. The runner executes scripts as ES modules where top-level `return` is a syntax error; in n8n the script runs inside a function so `return` works there.
+
+```js
+// In n8n you'd write:  return result;
+// In this sandbox:
+console.log(JSON.stringify(result, null, 2));
+```
+
+Everything else is identical — `$input`, `$json`, `$('NodeName')`, and all other globals behave the same way.
+
+### Example
 
 ```js
 const items = $input.all();
 
 const result = items.map(item => ({
   json: {
-    ...item.json ?? item,
-    // your transformation here
+    ...item.json,
+    processed: true,
   },
 }));
 
 console.log(JSON.stringify(result, null, 2));
 ```
 
-Available methods:
+### Available globals
 
-| Method | Description |
+| Global | Description |
 |---|---|
-| `$input.all()` | Returns all input items as an array |
-| `$input.first()` | Returns the first item |
-| `$input.item` | The first item (shorthand property) |
+| `$input.all()` | All input items as `{ json, binary }[]` |
+| `$input.first()` | First item |
+| `$input.last()` | Last item |
+| `$input.item` | First item (shorthand) |
+| `$json` | `$input.first().json` |
+| `$('NodeName')` | Another node's output — requires `other_node_<NodeName>.json` in the folder |
 
 ## Adding a new node
 

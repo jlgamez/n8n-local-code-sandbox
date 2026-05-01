@@ -132,9 +132,24 @@ return [{ json: { total, count: items.length } }];
 
 ## Sandbox conventions
 
-- Use `return result` — the runner captures it and pretty-prints it.
-- `console.log(...)` inside the script is fine for debug output; it won't interfere with the captured return value.
+- **The only difference from real n8n**: instead of `return result`, end the script with `console.log(JSON.stringify(result, null, 2))`. The runner executes scripts as ES modules where top-level `return` is a syntax error. In n8n itself the script runs inside a function, so `return` works — but not here.
 - `input.json` items are plain objects — the runner wraps them to `{ json: item }` automatically.
+
+### Mocking other nodes
+
+To use `$('NodeName')` in a script, add a file named `other_node_<NodeName>.json` alongside `input.json`. The name after `other_node_` must match exactly what the script passes to `$()`.
+
+**`other_node_Fetch Users.json`**
+```json
+[{ "id": 1, "name": "Alice" }]
+```
+
+**`script.js`**
+```js
+const users = $('Fetch Users').all();
+```
+
+If the file is missing, the runner throws: `No mock data for node "Fetch Users". Add other_node_Fetch Users.json to the node folder.`
 
 ---
 
@@ -173,5 +188,5 @@ const result = items.map(item => ({
   },
 }));
 
-return result;
+console.log(JSON.stringify(result, null, 2));
 ```

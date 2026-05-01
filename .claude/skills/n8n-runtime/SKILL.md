@@ -26,6 +26,7 @@ All items from `$input.all()` / `$input.first()` / `$input.last()` are normalize
 | `$input.last()` | Last item |
 | `$input.item` | First item (shorthand) |
 | `$json` | `$input.first().json` |
+| `$('NodeName')` | Proxy for a mocked node — `.all()`, `.first()`, `.last()`, `.item`. Requires `other_node_<NodeName>.json` in the node folder. |
 | `$vars` | `{}` stub |
 | `$env` | `{}` stub |
 | `$workflow` | `{}` stub |
@@ -35,7 +36,6 @@ All items from `$input.all()` / `$input.first()` / `$input.last()` are normalize
 
 These n8n globals do not exist in this sandbox — code using them will need to be adapted:
 
-- `$('NodeName').all()` — referencing other nodes
 - `$binary` — binary data access
 - `$prevNode`, `$node` — node metadata
 - `this.helpers.*` — HTTP helpers, binary helpers
