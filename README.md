@@ -62,6 +62,6 @@ console.log(JSON.stringify(result, null, 2));
 | `$json` | `$input.first().json` |
 | `$('NodeName')` | Another node's output — requires `other_node_<NodeName>.json` in the folder |
 
-## Adding a new node
+## Adding a new node with via AI assisted coding
 
-Ask Claude: *"create a new code node for X"* or run `/n8n-coder` — it will scaffold both files and verify the output.
+Ask Claude/Codex/other: *"create a new code node for X"* or run `/n8n-coder` — it will scaffold both files and verify the output.
