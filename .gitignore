@@ -4,3 +4,4 @@ code-nodes/**/input.json
 
 # Ignore other node mocks — may contain data from other nodes in the workflow
 code-nodes/**/other_node_*.json
+/.idea/.name
