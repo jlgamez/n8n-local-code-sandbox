@@ -1,26 +1,38 @@
-# n8n-local-code-sandbox
+# n8n & respond.io Workflow Workbench
 
-Run and test n8n Code node scripts locally without spinning up n8n.
+Develop and test n8n Code node scripts locally and design workflows for n8n and respond.io — without running n8n.
 
 ## How it works
 
-Each folder under `code-nodes/` represents one n8n Code node. The runner wires up the `$input` global (simulating the n8n runtime) and executes the node's `script.js` against its `input.json`.
+Each folder under `n8n/code-nodes/` represents one n8n Code node. The runner wires up the `$input` global (simulating the n8n runtime) and executes the node's `script.js` against its `input.json`.
 
 ## Structure
 
 ```
-code-nodes/
-  <node-name>/
-    input.json   # array of input items
-    script.js    # node logic using $input
-workflows/
-  <workflow-name>/
-    <workflow-name>.json      # workflow definition
-    <workflow-name>_v2.json   # reviewed / improved version
-lib/
-  n8n-globals.js # simulates $input
-runner.js        # CLI entry point
+n8n/
+  runner.js              # CLI entry point
+  lib/
+    n8n-globals.js       # simulates $input
+  code-nodes/
+    <node-name>/
+      input.json         # array of input items
+      script.js          # node logic using $input
+  workflows/
+    cloud/               # n8n Cloud (production)
+      <workflow-name>/
+        <workflow-name>.json      # workflow definition
+        <workflow-name>_v2.json   # reviewed / improved version
+    local/               # self-hosted community edition (no $vars)
+      <workflow-name>/
+respond/
+  workflows/
+    <workflow-name>/
 ```
+
+### n8n workflows: cloud vs local
+
+- **cloud/** — workflows targeting n8n Cloud. Full feature set including `$vars`, global variables, and managed credentials.
+- **local/** — workflows targeting self-hosted n8n (community edition). No `$vars` or global variables available; use environment variables or hardcoded config instead.
 
 ## Running a node
 
@@ -66,12 +78,16 @@ console.log(JSON.stringify(result, null, 2));
 | `$json` | `$input.first().json` |
 | `$('NodeName')` | Another node's output — requires `other_node_<NodeName>.json` in the folder |
 
-## Adding a new node with via AI assisted coding
+## Adding a new node via AI assisted coding
 
-Ask Claude/Codex/other: *"create a new code node for X"* or run `/n8n-coder` — it will scaffold both files and verify the output.
+Ask Claude: *"create a new code node for X"* or run `/n8n-coder` — it will scaffold both files and verify the output.
 
-## Designing and reviewing workflows
+## Designing and reviewing n8n workflows
 
 Use the `/n8n-architect` skill to create new workflows, assess existing ones, or generate improved versions.
 
-Workflows are stored under `workflows/<workflow-name>/`. When a workflow is reviewed, the improved version is saved in the same folder with a version suffix — `_v2`, `_v3`, etc. — so the original is never overwritten.
+Workflows are stored under `n8n/workflows/cloud/` or `n8n/workflows/local/`. When a workflow is reviewed, the improved version is saved in the same folder with a version suffix — `_v2`, `_v3`, etc. — so the original is never overwritten.
+
+## respond.io workflows
+
+respond.io workflow files live under `respond/workflows/`. This area is starting minimal and will grow as needed.

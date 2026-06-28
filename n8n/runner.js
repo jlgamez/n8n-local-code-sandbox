@@ -1,6 +1,9 @@
 import { readFile, readdir } from 'fs/promises';
-import { resolve } from 'path';
+import { resolve, dirname } from 'path';
+import { fileURLToPath } from 'url';
 import { setup } from './lib/n8n-globals.js';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const folderArg = process.argv[2];
 if (!folderArg) {
@@ -8,8 +11,7 @@ if (!folderArg) {
   process.exit(1);
 }
 
-// Accept either a bare node name ("merge-top-slots") or a full path ("code-nodes/merge-top-slots")
-const folderPath = folderArg.includes('/') ? resolve(folderArg) : resolve('code-nodes', folderArg);
+const folderPath = folderArg.includes('/') ? resolve(folderArg) : resolve(__dirname, 'code-nodes', folderArg);
 const inputPath = resolve(folderPath, 'input.json');
 const scriptPath = resolve(folderPath, 'script.js');
 

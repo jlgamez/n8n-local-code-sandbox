@@ -158,9 +158,9 @@ If the file is missing, the runner throws: `No mock data for node "Fetch Users".
 When asked to create, add, or scaffold a new node, follow these steps:
 
 1. Determine the node name from the user's request — use kebab-case describing the transformation (e.g. `filter-inactive-users`).
-2. Create `code-nodes/<node-name>/input.json` — an array of input items.
-3. Create `code-nodes/<node-name>/script.js` — the node logic using `$input`.
-4. Run `npm run node -- code-nodes/<node-name>` to verify it works.
+2. Create `n8n/code-nodes/<node-name>/input.json` — an array of input items.
+3. Create `n8n/code-nodes/<node-name>/script.js` — the node logic using `$input`.
+4. Run `npm run node -- <node-name>` to verify it works.
 
 If the user doesn't specify what the node should contain, scaffold both files with a generic but runnable example:
 

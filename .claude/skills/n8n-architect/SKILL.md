@@ -11,15 +11,21 @@ Apply this skill when assessing, designing, improving, or creating full n8n work
 
 ## Workflow file conventions
 
-All workflows live under `workflows/<workflow_name>/` — each workflow gets its own subdirectory.
+n8n workflows live under `n8n/workflows/`, split by deployment target:
 
 ```
-workflows/
-  <workflow_name>/
-    <workflow_name>.json       # original / v1
-    <workflow_name>_v2.json    # after first review
-    <workflow_name>_v3.json    # after second review
+n8n/workflows/
+  cloud/                          # n8n Cloud (production)
+    <workflow_name>/
+      <workflow_name>.json        # original / v1
+      <workflow_name>_v2.json     # after first review
+  local/                          # self-hosted community edition
+    <workflow_name>/
+      <workflow_name>.json
 ```
+
+- **cloud/** — workflows targeting n8n Cloud. Full feature set including `$vars` and global variables.
+- **local/** — workflows targeting self-hosted n8n (community edition). `$vars` and global variables are **not available**; use environment variables or inline config instead.
 
 **Versioning rule** — when saving a reviewed or improved workflow, never overwrite the source file:
 - Source is `<name>.json` (no version suffix) → save output as `<name>_v2.json`.

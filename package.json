@@ -3,6 +3,6 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "node": "node runner.js"
+    "node": "node n8n/runner.js"
   }
 }
