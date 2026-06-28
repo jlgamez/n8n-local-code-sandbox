@@ -1,0 +1,30 @@
+{
+  "name": "Example — Webhook Handler",
+  "active": false,
+  "nodes": [
+    {
+      "id": "1",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "position": [200, 300],
+      "parameters": {
+        "path": "my-hook",
+        "responseMode": "onReceived"
+      },
+      "webhookId": "replace-with-uuid"
+    },
+    {
+      "id": "2",
+      "name": "Process",
+      "type": "n8n-nodes-base.code",
+      "position": [400, 300],
+      "parameters": {
+        "jsCode": "return $input.all().map(item => ({ json: { ...item.json, handled: true } }));"
+      }
+    }
+  ],
+  "connections": {
+    "Webhook": { "main": [[{ "node": "Process", "type": "main", "index": 0 }]] }
+  },
+  "settings": { "errorWorkflow": "" }
+}

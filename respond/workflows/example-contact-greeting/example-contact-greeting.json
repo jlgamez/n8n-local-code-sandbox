@@ -1,0 +1,17 @@
+{
+  "name": "Example — Contact Greeting",
+  "trigger": {
+    "type": "conversation_opened"
+  },
+  "steps": [
+    {
+      "type": "send_message",
+      "message": "Hi {{contact.firstName}}, welcome! How can I help you today?"
+    },
+    {
+      "type": "assign_conversation",
+      "assignTo": "team",
+      "teamId": "replace-with-team-id"
+    }
+  ]
+}

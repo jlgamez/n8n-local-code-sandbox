@@ -1,0 +1,29 @@
+{
+  "name": "Example — Scheduled Fetch",
+  "active": false,
+  "nodes": [
+    {
+      "id": "1",
+      "name": "Schedule",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "position": [200, 300],
+      "parameters": {
+        "rule": { "interval": [{ "field": "hours", "hoursInterval": 1 }] }
+      }
+    },
+    {
+      "id": "2",
+      "name": "Fetch Data",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [400, 300],
+      "parameters": {
+        "url": "https://api.example.com/data",
+        "authentication": "none"
+      }
+    }
+  ],
+  "connections": {
+    "Schedule": { "main": [[{ "node": "Fetch Data", "type": "main", "index": 0 }]] }
+  },
+  "settings": { "errorWorkflow": "" }
+}
